@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+        <title>Autodesk one view sample</title>
+        <link rel="stylesheet" href="https://developer.api.autodesk.com/viewingservice/v1/viewers/style.css" />
+        <script src="https://developer.api.autodesk.com/viewingservice/v1/viewers/viewer3D.min.cp.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="MyScript.js"></script>
+
+
+        <style type="text/css">
+            #Text1
+            {
+                top: 30px;
+                left: 578px;
+                width: 77px;
+                height: 18px;
+            }
+        #OperationSelectionBox
+{
+    height: 30px;
+    width: 203px;
+    margin-left: 0px;
+    margin-top: 5px;
+    top: 167px;
+    left: 170px;
+}
+            #Button1
+            {
+                top: 137px;
+                width: 48px;
+                margin-left: 154px;
+                height: 23px;
+            }
+            #Text1_explode
+            {
+                height: 28px;
+                width: 79px;
+                top: 638px;
+                left: 1547px;
+            }
+            #button_clearSelection
+            {
+                top: 523px;
+                width: 152px;
+            }
+            #bu_Search
+            {
+                top: 604px;
+                left: 1533px;
+                width: 79px;
+            }
+            #But_left
+            {
+                top: 125px;
+                left: 1415px;
+                width: 35px;
+            }
+            #btt_turn_clock
+            {
+                top: 137px;
+                left: 1591px;
+            }
+            #but_zoomin
+            {
+                left: 1654px;
+            }
+            #Checkbox1
+            {
+                width: 165px;
+            }
+        </style>
+</head>
+
+<body id="ResetView" onload="OnInitialize();" bgcolor="#d9e1e0">
+    <p>
+        <input id="title" align="middle" readonly="readonly" 
+            style="border-style: hidden; position: fixed; font-family: Arial, Helvetica, sans-serif; font-size: 32px; font-weight: bold; color: #FF0000; left: 671px; top: 33px; width: 539px; background-color: #d9e1e0;" 
+            type="text" value="Autodesk View &amp; Data API sample" 
+            onclick="return title_onclick()" /><table id="PropertiesTable" border="1" 
+            frame="box" 
+            
+            style="border-style: solid; width: 268px; height: 546px; position: fixed; top: 173px; left: 1241px; overflow: scroll; border-radius: 15px; background-color: #C0C0C0;">
+            <tr>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+        </table>
+    </p>
+
+        <div style="border-style: solid; position: fixed; top: 169px; left: 443px; height: 547px; width: 777px; border-radius: 15px; background-color: #C0C0C0;"  
+            id="3dViewDiv">
+        </div>
+        <input id="TokenText" 
+            style="font-family: Arial, Helvetica, sans-serif; border-radius: 15px; font-size: medium; font-weight: bold; border-style: solid; position: fixed; top: 113px; left: 119px; width: 298px; height: 38px; right: 1115px;" 
+            type="text" /><input id="DocIdTB" type="text" 
+        style="border-style: solid; position: fixed; font-family: Arial, Helvetica, sans-serif; 
+            font-size: medium; font-weight: bold; left: 438px; top: 113px; width: 924px; height: 38px; border-radius: 15px;" 
+        value="" /><input id="LoadDocBtn" type="button" value="Load" 
+            onclick="return LoadDocumentBtnClicked()" 
+        
+        
+        style="position: fixed; width: 116px; height: 38px; left: 1381px; top: 113px; border-radius: 15px; background-color: #9F9FBF; font-size: large;"/><input 
+        id="NavigateBackBtn" type="button" value="<<" onclick="return onNavigateBack()" 
+        
+        style="position: fixed; top: 166px; width: 40px; height: 35px; left: 117px; border-radius: 15px; right: 803px; background-color: #9F9FBF; font-size: large;"><select 
+        id="OperationSelectionBox" name="D1" onchange="OnChangeOperation();"
+            
+        
+        style="border-style: solid; position: fixed; background-color: #d9e1e0; font-family: Arial, Helvetica, sans-serif; font-size: medium; font-weight: bold; left: 167px; width: 206px; height: 35px; top: 163px;">
+            <option selected>Isolate</option>
+            <option>Select</option>
+            <option>Hide</option>
+        </select><input id="NavigateForwardBtn" type="button" value=">>" 
+        onclick="return onNavigateForward()" 
+        
+        style="position: fixed; top: 166px; left: 382px; height: 35px; width: 40px; border-radius: 15px; background-color: #9F9FBF; font-size: large;"><select 
+        id="ModelList" onclick="Model_selectedItem(this);" multiple="multiple" 
+            
+        style="border-width: thick; border-style: solid; position: fixed; overflow: scroll; background-color: #C0C0C0; font-family: Arial, Helvetica, sans-serif; font-size: medium; font-weight: bold; top: 220px; left: 119px; height: 650px; width: 298px; border-radius: 15px;" 
+        name="D2">
+            <option></option>
+        </select><select id="OutputMessages" multiple="multiple" name="D3" 
+            
+        
+        
+        style="overflow: scroll; position: fixed; border-style: solid; background-color: #C0C0C0; font-family: Arial, Helvetica, sans-serif; font-size: medium; font-weight: bold; top: 732px; left: 444px; height: 138px; width: 1068px; border-radius: 15px;">
+            <option></option>
+        </select><input id="ChangeCameraPos2" type="button" value="-" 
+        onclick="ChangeCameraPosNegative()" 
+        
+        style="position: fixed; top: 176px; left: 1526px; height: 34px; width: 32px; border-radius: 15px; background-color: #9F9FBF; font-size: large;"/><select 
+        id="DirectionSelect" name="Direction" onchange="OnChangeDirection();" 
+        
+        style="border-style: solid; position: fixed; background-color: #d9e1e0; font-family: Arial, Helvetica, sans-serif; font-size: medium; font-weight: bold; top: 178px; left: 1570px; width: 48px; height: 35px;">
+            <option selected>X</option>
+            <option>Y</option>
+            <option>Z</option>
+        </select><input id="ChangeCameraPos1" type="button" value="+" 
+        onclick="ChangeCameraPosPositive()" 
+        
+        style="position: fixed; top: 176px; left: 1628px; width: 32px; height: 34px; border-radius: 15px; background-color: #9F9FBF; font-size: large;"/><form style="margin: 0px; position: fixed; left: 1531px; width: 317px; height: 338px; right: 36px; top: 236px;" 
+        id="CheckboxForm" name="CheckboxForm">
+            <input type="checkbox" id="ZoomCheckbox" name="ZoomCheckbox" value="Zoom">Zoom<br />
+            <input id="Checkbox_Ghost" type="checkbox" name="GhostCheckbox" 
+                onchange = "OnChangeGhostCheckbox()" value="Show ghost objects in isolate" 
+                checked="checked">Show ghost objects in isolate<br />
+            <br />
+            <input type="checkbox" id="SelectionChangedEvtCheckbox" name="SelectionChangedEvtCheckbox"  onchange = "OnChangeSelectionChangedEvtCheckbox()" value="SelectionEvent">Selection Changed event<br />
+            <input type="checkbox" id="IsolateEvtCheckbox" name="IsolateEvtCheckbox"  onchange = "OnChangeIsolateEvtCheckbox()" value="IsolateEvent">Isolate event<br />
+            <input type="checkbox" id="HideEvtCheckbox" name="HideEvtCheckbox"  onchange = "OnChangeHideEvtCheckbox()" value="HideEvent">Hide event<br />
+            <input type="checkbox" id="ShowEvtCheckbox" name="ShowEvtCheckbox"  onchange = "OnChangeShowEvtCheckbox()" value="ShowEvent">Show event<br />
+            <input type="checkbox" id="ProgressUpdateEvtCheckbox" name="ProgressUpdateEvtCheckbox"  onchange = "OnChangeProgressUpdateEvtCheckbox()" value="ProgressUpdateEvent">Progress update event<br />
+            <input type="checkbox" id="ErrorEvtCheckbox" name="ErrorEvtCheckbox"  onchange = "OnChangeErrorEvtCheckbox()" value="ErrorEvent">Error event<br />
+            <input type="checkbox" id="EscapeEvtCheckbox" name="EscapeEvtCheckbox"  onchange = "OnChangeEscapeEvtCheckbox()" value="EscapeEvent">Escape event<br />
+            <input type="checkbox" id="NavigationModeEvtCheckbox" name="NavigationModeEvtCheckbox"  onchange = "OnChangeNavigationModeEvtCheckbox()" value="NavigationModeChangedEvent">Navigation mode changed event<br />
+            <input type="checkbox" id="CameraChangedEvtCheckbox" name="CameraChangedEvtCheckbox"  onchange = "OnChangeCameraChangedEvtCheckbox()" value="CameraChangedEvent">Camera Changed event<br />
+            <input type="checkbox" id="HighlightEvtCheckbox" name="HighlightEvtCheckbox"  onchange = "OnChangeHighlightEvtCheckbox()" value="HighlightEvent">Highlight event<br />
+            <input type="checkbox" id="GeometryLoadedEvtCheckbox" name="GeometryLoadedEvtCheckbox"  onchange = "OnChangeGeometryLoadedEvtCheckbox()" value="GeometryLoadedEvent">Geometry loaded event<br />
+        </form>
+        
+    <input id="fitView" 
+        
+        style="position: fixed; left: 1543px; top: 594px; width: 88px; height: 31px; right: 253px; border-radius: 15px; font-family: Arial, Helvetica, sans-serif; font-size: large; background-color: #9F9FBF;" 
+        height: 25px; type="button" 
+        value="Show all" onclick="return show_onclick()" />&nbsp;&nbsp;&nbsp;
+        <input id="slider1" type="range" min="0" max="1" step="0.01" 
+        
+        style="margin: 0px; padding: 0px; position: fixed; top: 650px; left: 1644px; width: 153px; border-radius: 15px;" 
+        onchange="explodeValue(this.value)"; oninput="onExplodeValue(this.value)"; title="Explode" 
+        value="0" /><input id="button_clearSelection" 
+        style="position: fixed; margin: 0px; padding: 0px; top: 595px; left: 1646px; height: 31px; border-radius: 15px; background-color: #9F9FBF; width: 152px; font-size: large;" 
+        type="button" value="Clear selection" 
+        onclick="return button_clearSelection_onclick()" />
+    <input id="bu_Search" 
+        style="position: fixed; margin: 0px; padding: 0px; width: 81px; height: 31px; top: 676px; left: 1542px; right: 261px; border-radius: 15px; background-color: #9F9FBF; font-size: large;" 
+        type="button" value="Search" onclick="return Search_onclick()"/><input id="Text1_Search" 
+        style="position: fixed; margin: 0px; padding: 0px; width: 155px; height: 31px; left: 1640px; top: 675px; border-radius: 15px; font-family: Arial, Helvetica, sans-serif; font-size: large;" 
+        type="text" />
+    <input id="But_left" 
+        style="position: fixed; left: 1541px; top: 721px; width: 32px; height: 28px; right: 311px; border-radius: 15px; background-color: #9F9FBF; font-size: large;" 
+        type="button" onclick="return rightturen_onclick()" value="&lt;&lt;" />
+    <input id="btt_turn_clock" 
+        style="position: fixed;  width: 32px; height: 28px; top: 721px; border-radius: 15px; left: 1591px; background-color: #9F9FBF; font-size: large;" 
+        type="button" onclick="return leftturn_onclick()" value="&gt;&gt;" /><input id="But_zoomin" 
+        style="position: fixed; width: 32px; height: 28px; margin: 0px; left: 1641px; top: 721px; border-radius: 15px; background-color: #9F9FBF; font-size: large;" 
+        type="button" onclick="return zoomin_onclick()" value="++" /><input id="but_zoomout" 
+        style="margin: 0px; position: fixed; width: 32px; height: 28px; top: 721px; left: 1689px; border-radius: 15px; background-color: #9F9FBF; font-size: large;" 
+        type="button" onclick="return zoomout_onclick()" value="--" />
+        
+    <input id="Text1_explode" readonly="readonly" 
+        style="margin: 0px; position: fixed; border-style: none; font-family: Arial, Helvetica, sans-serif; font-size: large; width: 79px; height: 28px; left: 1547px; top: 638px; background-color: #d9e1e0;" 
+        type="text" value="Explode" />
+        
+</body>
+</html>

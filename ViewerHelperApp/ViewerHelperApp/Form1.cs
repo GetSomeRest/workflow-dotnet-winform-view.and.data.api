@@ -157,7 +157,7 @@ namespace ViwerSteps
                 int index2 = responseString.IndexOf("\"");
                 string urn = responseString.Substring(0, index2);
 
-                updatelistBox1("file id" + urn);
+                updatelistBox1("file id :" + urn);
 
                 byte[] bytes = Encoding.UTF8.GetBytes(urn);
                 string urn64 = Convert.ToBase64String(bytes);

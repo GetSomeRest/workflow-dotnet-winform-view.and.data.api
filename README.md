@@ -12,6 +12,9 @@ This is a sample for WinForm desktop application demoing the partial workflow of
 
 This sample uses the RestSharp library. You can add it to your project using NuGet in Visual Studio.
 
+The test HTML page can be found in the [fullstack client sample](https://github.com/Developer-Autodesk/client-fullstack-view.and.data.api).
+
+
 ##Setup/Usage Instructions
 
 For more details refer the short video showing the working of the sample 

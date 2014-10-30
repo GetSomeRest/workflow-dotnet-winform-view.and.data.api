@@ -31,7 +31,6 @@ namespace ViwerSteps
 
         String strConsumerKey = "";
         String strConsumerSecret = "";
-        const String bucketname = "autodeskviewerbucket";
 
         String _token = "";
         string _fileUrn = "";
@@ -87,7 +86,7 @@ namespace ViwerSteps
         }
 
         //create the buket to upload
-        bool createAdnBuket()
+        bool createBuket(string bucketname)
         {
             RestRequest bucketReq = new RestRequest();
             bucketReq.Resource = "oss/v1/buckets";
@@ -103,12 +102,12 @@ namespace ViwerSteps
 
             if (resp.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
-                updatelistBox1("Bucket autodeskviewerbucket already present");
-                return true;
+                updatelistBox1("Bucket "+bucketname+" already present");
+                return false;
             }
             if (resp.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                updatelistBox1("Bucket autodeskviewerbucket created");
+                updatelistBox1("Bucket " + bucketname + " created");
                 return true;
 
             }
@@ -135,7 +134,7 @@ namespace ViwerSteps
                 fileData = reader.ReadBytes(nlength);
             }
 
-            uploadReq.Resource = "oss/v1/buckets/" + bucketname + "/objects/" + objectKey;
+            uploadReq.Resource = "oss/v1/buckets/" + txtBucketName.Text.ToLower() + "/objects/" + objectKey;
             uploadReq.Method = Method.PUT;
             uploadReq.AddParameter("Authorization", "Bearer " + _token, ParameterType.HttpHeader);
             uploadReq.AddParameter("Content-Type", "application/stream");
@@ -213,11 +212,7 @@ namespace ViwerSteps
         //upload the document.
         bool upload(string strFile, ref string fileUrn)
         {
-            //create required bucket
-            if (createAdnBuket() == false)
-            {
-                return false;
-            }
+            
 
             if (uploadFile(strFile, ref fileUrn) == false)
             {
@@ -313,7 +308,7 @@ namespace ViwerSteps
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "3d Files (*.stl, *.dwf, *.dwg, *.nwc, *.3ds, *.rvt, *.iam, *.dwfx) | *.stl; *.dwf; *.dwg; *.nwc;*.3ds;*.rvt;*.iam;*.dwfx";
+            //openFileDialog1.Filter = "3d Files (*.stl, *.dwf, *.dwg, *.nwc, *.3ds, *.rvt, *.iam, *.dwfx) | *.stl; *.dwf; *.dwg; *.nwc;*.3ds;*.rvt;*.iam;*.dwfx";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 richTextBox1.Text = "";
@@ -356,6 +351,19 @@ namespace ViwerSteps
             authentication();
             updatelistBox1(" ----------Getting token--------");
             updatelistBox1("");
+        }
+
+        private void btnCreateBucket_Click(object sender, EventArgs e)
+        {
+            if (txtBucketName.Text.Trim() == string.Empty)
+            {
+                MessageBox.Show("You must input to a bucket name.");
+            }
+            //create required bucket
+            if (createBuket(txtBucketName.Text.ToLower()) == false)
+            {
+                updatelistBox1(" ----------Create Bucket failed--------");
+            }
         }
 
 

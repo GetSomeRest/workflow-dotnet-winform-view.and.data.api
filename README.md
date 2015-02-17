@@ -17,7 +17,7 @@ This sample uses the RestSharp library. You can add it to your project using NuG
 * Build and run this application
 * Input your consumer key and secret key, which is applied from http://developer.autodesk.com
 
-For more details refer to the section of [this document](https://github.com/Developer-Autodesk/tutorial-aspnet-view.and.data.api/blob/master/handsout.pdf) or the [short video](ViewerDeveloperSample_working.mp4) showing the working of the sample 
+For more details please refer to the first two sections of [this document](https://github.com/Developer-Autodesk/tutorial-aspnet-view.and.data.api/blob/master/handsout.pdf).  
 
 ## License
 

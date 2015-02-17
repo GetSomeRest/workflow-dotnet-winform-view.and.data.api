@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using RestSharp;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Net;
-using System.IO;
 using System.Web;
 using System.Windows.Forms;
-using RestSharp;
 
 
 namespace ViwerSteps
@@ -37,7 +33,7 @@ namespace ViwerSteps
         void updatelistBox1(string strText)
         {
             richTextBox1.Text = richTextBox1.Text + strText + "\n";
-           
+
             richTextBox1.Invalidate();
             this.Invalidate();
         }
@@ -77,7 +73,7 @@ namespace ViwerSteps
                 if (resp.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //done...
-                    updatelistBox1("Set token Successfull");
+                    updatelistBox1("Set token Successfully");
                     return true;
                 }
             }
@@ -85,7 +81,7 @@ namespace ViwerSteps
 
         }
 
-        //create the buket to upload
+        //create the bucket to upload
         bool createBuket(string bucketname)
         {
             RestRequest bucketReq = new RestRequest();
@@ -102,7 +98,7 @@ namespace ViwerSteps
 
             if (resp.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
-                updatelistBox1("Bucket "+bucketname+" already present");
+                updatelistBox1("Bucket " + bucketname + " already present");
                 return false;
             }
             if (resp.StatusCode == System.Net.HttpStatusCode.OK)
@@ -116,7 +112,7 @@ namespace ViwerSteps
 
         }
 
-       
+
 
         bool uploadFile(string strFile, ref string fileUrn)
         {
@@ -174,7 +170,7 @@ namespace ViwerSteps
                 updatelistBox1("urn:" + urn64);
 
                 IRestResponse BubbleResp = _client.Execute(bubleReq);
-          
+
                 if (BubbleResp.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //Translation started
@@ -195,8 +191,8 @@ namespace ViwerSteps
                     return false;
                 }
 
-                
-               
+
+
             }
             else
             {
@@ -209,10 +205,10 @@ namespace ViwerSteps
         }
 
 
-        //upload the document.
+        //upload the model.
         bool upload(string strFile, ref string fileUrn)
         {
-            
+
 
             if (uploadFile(strFile, ref fileUrn) == false)
             {
@@ -222,7 +218,7 @@ namespace ViwerSteps
             return true;
         }
 
-       
+
 
         void getTheProgress(string fileUrn, bool update)
         {
@@ -234,12 +230,12 @@ namespace ViwerSteps
 
             if (thumbResp.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                
+
                 dynamic json = SimpleJson.DeserializeObject(thumbResp.Content);
 
                 System.Collections.Generic.Dictionary<string, object>.KeyCollection keys = json.Keys;
                 System.Collections.Generic.Dictionary<string, object>.ValueCollection Values = json.Values;
-                
+
                 //object title = json.Keys["status"];
                 updatelistBox1(" ");
                 updatelistBox1(" ----------results--------");
@@ -248,18 +244,18 @@ namespace ViwerSteps
                     var key = keys.ElementAt(i);
                     var item = Values.ElementAt(i);
 
-                    
+
                     if (key is string && item is string)
                     {
-                        updatelistBox1((string)key + "=" + (string)item); 
+                        updatelistBox1((string)key + "=" + (string)item);
 
                         if (String.Compare((string)key, "progress") == 0)
                         {
                             label1_per.Text = (string)item;
                         }
                     }
-                    
-                   
+
+
                 }
                 updatelistBox1(" ----------results--------");
                 updatelistBox1(" ");
@@ -271,39 +267,39 @@ namespace ViwerSteps
                     updatelistBox1(" ----------all content--------");
                 }
 
-               
+
             }
             else
             {
-                    updatelistBox1(thumbResp.Content);
+                updatelistBox1(thumbResp.Content);
             }
         }
 
         void Thumbnails(string fileUrn)
         {
-          
-                RestRequest thumnail = new RestRequest();
-                thumnail.Resource = "/viewingservice/v1/thumbnails/" + fileUrn;
-                thumnail.Method = Method.GET;
-                thumnail.AddParameter("Authorization", "Bearer " + _token, ParameterType.HttpHeader);
-                IRestResponse thumbResp = _client.Execute(thumnail);
-                if (thumbResp.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    MemoryStream ms = new MemoryStream(thumbResp.RawBytes);
-                    pictureBox1.Image = Image.FromStream(ms);
-                    pictureBox1.Invalidate();
 
-                    updatelistBox1("showing thumbnail");
-                }
-                else
-                {
-                    updatelistBox1("showing thumbnail failed");
-                }
+            RestRequest thumnail = new RestRequest();
+            thumnail.Resource = "/viewingservice/v1/thumbnails/" + fileUrn;
+            thumnail.Method = Method.GET;
+            thumnail.AddParameter("Authorization", "Bearer " + _token, ParameterType.HttpHeader);
+            IRestResponse thumbResp = _client.Execute(thumnail);
+            if (thumbResp.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                MemoryStream ms = new MemoryStream(thumbResp.RawBytes);
+                pictureBox1.Image = Image.FromStream(ms);
+                pictureBox1.Invalidate();
+
+                updatelistBox1("showing thumbnail");
+            }
+            else
+            {
+                updatelistBox1("showing thumbnail failed");
+            }
 
 
         }
 
-        
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -316,7 +312,7 @@ namespace ViwerSteps
                 label1_filename.Invalidate();
                 this.Invalidate();
                 //
-                
+
                 if (authentication() == false)
                     return;
 

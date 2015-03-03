@@ -45,6 +45,8 @@
             this.txtBucketName = new System.Windows.Forms.TextBox();
             this.btnCreateBucket = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnViewInBrowser = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +70,7 @@
             this.label1_filename.Location = new System.Drawing.Point(184, 178);
             this.label1_filename.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1_filename.Name = "label1_filename";
-            this.label1_filename.Size = new System.Drawing.Size(544, 35);
+            this.label1_filename.Size = new System.Drawing.Size(548, 35);
             this.label1_filename.TabIndex = 3;
             // 
             // openFileDialog1
@@ -84,7 +86,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(184, 277);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(545, 215);
+            this.richTextBox1.Size = new System.Drawing.Size(549, 293);
             this.richTextBox1.TabIndex = 5;
             this.richTextBox1.Text = "";
             // 
@@ -118,7 +120,7 @@
             this.label1_per.Location = new System.Drawing.Point(184, 228);
             this.label1_per.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1_per.Name = "label1_per";
-            this.label1_per.Size = new System.Drawing.Size(544, 35);
+            this.label1_per.Size = new System.Drawing.Size(548, 35);
             this.label1_per.TabIndex = 8;
             // 
             // button_token
@@ -211,11 +213,34 @@
             this.label3.TabIndex = 18;
             this.label3.Text = "Thumbnail:";
             // 
+            // btnViewInBrowser
+            // 
+            this.btnViewInBrowser.Location = new System.Drawing.Point(24, 452);
+            this.btnViewInBrowser.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnViewInBrowser.Name = "btnViewInBrowser";
+            this.btnViewInBrowser.Size = new System.Drawing.Size(147, 35);
+            this.btnViewInBrowser.TabIndex = 19;
+            this.btnViewInBrowser.Text = "View in browser";
+            this.btnViewInBrowser.UseVisualStyleBackColor = true;
+            this.btnViewInBrowser.Click += new System.EventHandler(this.btnViewInBrowser_Click);
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(21, 501);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(145, 70);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "You need to set a WebGL enabled browser as default browser. Google Chrome is reco" +
+    "mmended.";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(747, 502);
+            this.ClientSize = new System.Drawing.Size(751, 580);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnViewInBrowser);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCreateBucket);
             this.Controls.Add(this.txtBucketName);
@@ -261,6 +286,8 @@
         private System.Windows.Forms.TextBox txtBucketName;
         private System.Windows.Forms.Button btnCreateBucket;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnViewInBrowser;
+        private System.Windows.Forms.Label label4;
 
     }
 }

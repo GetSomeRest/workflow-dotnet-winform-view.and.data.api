@@ -1,5 +1,6 @@
 ﻿using RestSharp;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -360,6 +361,18 @@ namespace ViwerSteps
             {
                 updatelistBox1(" ----------Create Bucket failed--------");
             }
+        }
+
+        private void btnViewInBrowser_Click(object sender, EventArgs e)
+        {
+
+            //Start the viewer in default browser, this browser should 
+            //support WebGL, latest version of Google Chrome or Firefox are recommended.
+
+            string url = string.Format("http://viewer.autodesk.io/node/view-helper?urn={0}&token={1}", _fileUrn, _token);
+
+            Process.Start(url);
+
         }
 
 

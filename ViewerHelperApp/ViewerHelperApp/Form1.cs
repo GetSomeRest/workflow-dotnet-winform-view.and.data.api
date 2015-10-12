@@ -92,7 +92,7 @@ namespace ViwerSteps
             bucketReq.AddParameter("Content-Type", "application/json", ParameterType.HttpHeader);
 
             //bucketname is the name of the bucket.
-            string body = "{\"bucketKey\":\"" + bucketname + "\",\"servicesAllowed\":{},\"policy\":\"transient\"}";
+            string body = "{\"bucketKey\":\"" + bucketname + "\",\"policy\":\"transient\"}";
             bucketReq.AddParameter("application/json", body, ParameterType.RequestBody);
 
             IRestResponse resp = _client.Execute(bucketReq);

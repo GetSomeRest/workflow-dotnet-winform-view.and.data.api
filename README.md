@@ -1,6 +1,7 @@
 
 #workflow-winform-view and data API
 
+**This sample is now retired, it is not maintained anymore.** It is provided as-is and we discourage using it in your production code. If you are looking for a .Net Desktop example with View & Data API, take a look at [view.and.data-dotnet-wpf.tutorial](https://github.com/Developer-Autodesk/view.and.data-dotnet-wpf.tutorial)
 
 ##Description
 

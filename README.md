@@ -1,3 +1,4 @@
+# Deprecated sample - not maintained anymore (Summer 2016)
 
 #workflow-winform-view and data API
 
